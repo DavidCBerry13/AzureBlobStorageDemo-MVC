@@ -1,0 +1,36 @@
+﻿{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:57996",
+      "sslPort": 44324
+    }
+  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "AZURE_SUBSCRIPTION_ID": "9fd7cb78-f69b-4321-8e42-ad0dca902611",
+        "AZURE_CLIENT_ID": "41e6dc69-39b3-46d8-b3b1-52eda19d1979",
+        "AZURE_TENANT_ID": "ca4fb39e-909b-4a0a-820c-e8925f9bcb4d",
+        "AZURE_CLIENT_SECRET": "YeC3EO7Y9~JGbTT-jC90InMKShMELYp9dc"
+
+      }
+    },
+    "AzureBlobStorageDemo": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "AZURE_SUBSCRIPTION_ID": "9fd7cb78-f69b-4321-8e42-ad0dca902611",
+        "AZURE_CLIENT_ID": "41e6dc69-39b3-46d8-b3b1-52eda19d1979",
+        "AZURE_TENANT_ID": "ca4fb39e-909b-4a0a-820c-e8925f9bcb4d",
+        "AZURE_CLIENT_SECRET": "YeC3EO7Y9~JGbTT-jC90InMKShMELYp9dc"
+      }
+    }
+  }
+}

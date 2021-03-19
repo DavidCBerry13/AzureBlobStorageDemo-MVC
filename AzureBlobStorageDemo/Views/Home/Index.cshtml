@@ -1,0 +1,75 @@
+﻿@model AzureBlobStorageDemo.Models.StorageDemoIndexModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>Azure Blob Storage Demo Application</h1>
+
+@if (TempData.ContainsKey("Message"))
+{
+    var message = TempData.Get<MessageModel>("Message") as MessageModel;
+    
+    <div class="alert @message.Level.ToCssClass()" role="alert">
+        @message.Message
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Container Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var container in Model.Containers)
+        {
+            <tr>
+                <td>
+                    @container.Name
+                </td>
+                <td class="text-right">
+                    @Html.ActionLink("View", "Index", "Blobs", new { containerName = container.Name }, new { @class = "btn btn-primary" })
+                    @using (Html.BeginForm("Delete", "Home", new { containerName = container.Name }, FormMethod.Post, false, new { @class = "d-inline-block" }))
+                    {
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p class="text-right">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createBlobContainerModal">Create Blob Container</button>
+</p>
+
+
+<div id="createBlobContainerModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        @using (Html.BeginForm("Create", "Home", new { }, FormMethod.Post))
+        {
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Blob Container</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label for="createContainerName">Name</label>
+                    <input id="createContainerName" type="text" name="containerName" class="form-control" required minlength=3 maxlength=63 pattern="[a-z]{1}([a-z]|[0-9]|-){1,61}[a-z]{1}"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </div>
+        }
+        <!-- </form> -->
+    </div>
+</div>

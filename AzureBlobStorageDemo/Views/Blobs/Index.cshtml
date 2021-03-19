@@ -1,0 +1,90 @@
+﻿@model AzureBlobStorageDemo.Models.BlobsPageModel
+
+@{
+    ViewData["Title"] = "Blobs";
+}
+
+<h1>Storage Blobs</h1>
+
+<p>
+    <span style="font-size: 125%; font-weight: bold">Storage Account:</span> @Model.StorageAccountName<br />
+    <span style="font-size: 125%; font-weight: bold">Container:</span> @Model.ContainerName<br />
+</p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Create Date</th>
+            <th>Content Type</th>
+            <th>Size</th>
+            <th>Tags</th>
+            <th class="text-right">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Blobs)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContentType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Size)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tags)
+                </td>
+                <td class="text-right">
+                    @Html.ActionLink("Download", "Download", new { containerName = Model.ContainerName, blobName = item.Name }, new { @class = "btn btn-primary" })
+                    @using (Html.BeginForm("Delete", "Blobs", new { containerName = Model.ContainerName, blobName = item.Name }, FormMethod.Post, true, new { @class= "d-inline-block" }))
+                    {
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p class="text-right">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#blobUploadModal">Upload Blob</button>
+    @Html.ActionLink("Back to containers list", "Index", "Home", new { }, new { @class = "btn btn-secondary" })
+</p>
+
+
+<div id="blobUploadModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        @using (Html.BeginForm("Upload", "Blobs", new { containerName = Model.ContainerName }, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
+        {
+    <!--<form enctype="multipart/form-data" method="post" action="Upload"> -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Upload Blob</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label>Name</label>
+                <input type="text" name="name" />
+                <label>File</label>
+                <input name="uploadFile" type="file">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </div>
+        </div>
+        }
+        <!-- </form> -->
+    </div>
+</div>
+
