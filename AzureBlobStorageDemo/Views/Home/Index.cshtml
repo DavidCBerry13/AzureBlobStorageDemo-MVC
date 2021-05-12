@@ -34,7 +34,7 @@
                 </td>
                 <td class="text-right">
                     @Html.ActionLink("View", "Index", "Blobs", new { containerName = container.Name }, new { @class = "btn btn-primary" })
-                    @using (Html.BeginForm("Delete", "Home", new { containerName = container.Name }, FormMethod.Post, false, new { @class = "d-inline-block" }))
+                    @using (Html.BeginForm("Delete", "Home", new { containerName = container.Name }, FormMethod.Post, true, new { @class = "d-inline-block" }))
                     {
                         <button type="submit" class="btn btn-danger">Delete</button>
                     }
