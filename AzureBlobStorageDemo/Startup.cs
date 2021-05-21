@@ -32,14 +32,15 @@ namespace AzureBlobStorageDemo
         {
             services.AddControllersWithViews();
 
-            string subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
+             string subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
             var credential = new DefaultAzureCredential();
 
-            services.AddSingleton<ResourcesManagementClient>(new ResourcesManagementClient(subscriptionId, credential));
-            services.AddSingleton<StorageManagementClient>(new StorageManagementClient(subscriptionId, credential));
+            //services.AddSingleton<ResourcesManagementClient>(new ResourcesManagementClient(subscriptionId, credential));
+            //services.AddSingleton<StorageManagementClient>(new StorageManagementClient(subscriptionId, credential));
 
-            String connectionString = Configuration.GetConnectionString("AzureStorage");
-            BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);                       
+            var blobServiceClient = new BlobServiceClient(new Uri("https://storageblobdemodcb.blob.core.windows.net"), credential);
+            //String connectionString = Configuration.GetConnectionString("AzureStorage");
+            //BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);                       
             services.AddSingleton(blobServiceClient);
           
             services.AddSingleton<StorageDemoService>();
